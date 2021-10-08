@@ -2,6 +2,7 @@
 var maxNumPowers = 3, powersCollected = 0;
 var maxFirePoints = 4, pointsCollected = 0;
 var maxWaterPoints = 4, points = 0;
+var gameState="start";
 
 //moving platform only if some player steps on button2 or 3 then only it platform will stop at button
 //write if function for game win 
@@ -158,195 +159,202 @@ firePower.shapeColor = "yellow"
 function draw() {
 
   background("black");
-  watergirl.setVelocity(0,0);
-  fireboy.setVelocity(0,0);
-  troll.setVelocity(5,5)
+  if(gameState==="start"){
+    /*
+    form = new Form();
+    form.display();
+    toggleVisibility(false);
+    */
+  }
+  else if(gameState==="play"){
+    toggleVisibility(true)
+    watergirl.setVelocity(0,0);
+    fireboy.setVelocity(0,0);
+    troll.setVelocity(5,5)
   
-  drawSprites();
-  
-  textSize(20);
-  fill("blue")
-  text("Total:",900,100);
-  textSize(20);
-  fill("orange")
-  text(points,950,100)
+    drawSprites();
+    
+    textSize(20);
+    fill("blue")
+    text("Total:",900,100);
+    textSize(20);
+    fill("orange")
+    text(points,950,100)
 
-  troll.bounceOff(invisibleWall);
-  watergirl.collide(floor);
-  watergirl.collide(b1);
-  watergirl.collide(b2);
-  watergirl.collide(b9);
-  watergirl.collide(b4);
-  watergirl.collide(b5);
-  watergirl.collide(b6);
-  watergirl.collide(b7);
-  watergirl.collide(b8);
-  watergirl.collide(BoxP1);
+    troll.bounceOff(invisibleWall);
+    watergirl.collide(floor);
+    watergirl.collide(b1);
+    watergirl.collide(b2);
+    watergirl.collide(b9);
+    watergirl.collide(b4);
+    watergirl.collide(b5);
+    watergirl.collide(b6);
+    watergirl.collide(b7);
+    watergirl.collide(b8);
+    watergirl.collide(BoxP1);
 
-  fireboy.collide(floor);
-  fireboy.collide(b1)
-  fireboy.collide(b2)
-  fireboy.collide(b9)
-  fireboy.collide(b4)
-  fireboy.collide(b5)
-  fireboy.collide(b6)
-  fireboy.collide(b7)
-  fireboy.collide(b8)
-  fireboy.collide(BoxP1);
+    fireboy.collide(floor);
+    fireboy.collide(b1)
+    fireboy.collide(b2)
+    fireboy.collide(b9)
+    fireboy.collide(b4)
+    fireboy.collide(b5)
+    fireboy.collide(b6)
+    fireboy.collide(b7)
+    fireboy.collide(b8)
+    fireboy.collide(BoxP1);
 
-  troll.bounceOff(b4)
-  troll.bounceOff(b5)
-  troll.bounceOff(b6)
-  troll.bounceOff(b7)
-  troll.bounceOff(b8)
-  
+    troll.bounceOff(b4)
+    troll.bounceOff(b5)
+    troll.bounceOff(b6)
+    troll.bounceOff(b7)
+    troll.bounceOff(b8)
+    
 
-  if (gate1.visible){
-        watergirl.bounceOff(gate1)
-        fireboy.bounceOff(gate1);
-  }
-  
-  if (keyDown("UP_ARROW")) {
-      watergirl.velocityY = -6  }
-  if (keyDown("LEFT_ARROW")) {
-    watergirl.setVelocity(-6,0);
-  }
-  if (keyDown("RIGHT_ARROW")) {
-    watergirl.setVelocity(6,0);
-  }
-  if(keyDown("DOWN_ARROW")){
-    watergirl.setVelocity(0,6)
-  }
+    if (gate1.visible){
+          watergirl.bounceOff(gate1)
+          fireboy.bounceOff(gate1);
+    }
+    
+    if (keyDown("UP_ARROW")) {
+        watergirl.velocityY = -6  }
+    if (keyDown("LEFT_ARROW")) {
+      watergirl.setVelocity(-6,0);
+    }
+    if (keyDown("RIGHT_ARROW")) {
+      watergirl.setVelocity(6,0);
+    }
+    if(keyDown("DOWN_ARROW")){
+      watergirl.setVelocity(0,6)
+    }
 
-  if(keyDown("w")){
-    fireboy.setVelocity(0,-6);
-  }
-  if(keyDown("a")){
-    fireboy.setVelocity(-6,0)
-  }
-  if(keyDown("d")){
-    fireboy.setVelocity(6,0) 
-  }
-  if(keyDown("s")){
-    fireboy.setVelocity(0,6)
-  }
-  fireboy.velocityY +=1.5;
-  watergirl.velocityY += 1.5;
+    if(keyDown("w")){
+      fireboy.setVelocity(0,-6);
+    }
+    if(keyDown("a")){
+      fireboy.setVelocity(-6,0)
+    }
+    if(keyDown("d")){
+      fireboy.setVelocity(6,0) 
+    }
+    if(keyDown("s")){
+      fireboy.setVelocity(0,6)
+    }
+    fireboy.velocityY +=1.5;
+    watergirl.velocityY += 1.5;
 
-  if (watergirl.isTouching(button1)||fireboy.isTouching(button1)){
-    gate1.destroy();
-  }
-      
-  if (watergirl.isTouching(lava) || watergirl.isTouching(toxic) ||watergirl.isTouching(troll)){   
-      watergirl.x = 100;
-      watergirl.y = 690;
-  }
-  if(fireboy.isTouching(toxic)||fireboy.isTouching(water)||fireboy.isTouching(troll)){
-    fireboy.x = 90  
-    fireboy.y = 590 
-  }
-  if (fireboy.isTouching(BoxTp)){
-    fireboy.x = 1284
-    fireboy.y = 476
-  }
-  text(mouseX+","+mouseY,mouseX,mouseY)
-  if (watergirl.isTouching(BoxTp)){
-    watergirl.x = 1284
-    watergirl.y = 476
-  }
-  movingPlatform.bounceOff(b1);
-  movingPlatform.bounceOff(b5);
-  
-  if(fireboy.isTouching(button2)||watergirl.isTouching(button2)||fireboy.isTouching(button3)||watergirl.isTouching(button3)){
-    movingPlatform.velocityY = 0
+    if (watergirl.isTouching(button1)||fireboy.isTouching(button1)){
+      gate1.destroy();
+    }
+        
+    if (watergirl.isTouching(lava) || watergirl.isTouching(toxic) ||watergirl.isTouching(troll)){   
+        watergirl.x = 100;
+        watergirl.y = 690;
+    }
+    if(fireboy.isTouching(toxic)||fireboy.isTouching(water)||fireboy.isTouching(troll)){
+      fireboy.x = 90  
+      fireboy.y = 590 
+    }
+    if (fireboy.isTouching(BoxTp)){
+      fireboy.x = 1284
+      fireboy.y = 476
+    }
+    text(mouseX+","+mouseY,mouseX,mouseY)
+    if (watergirl.isTouching(BoxTp)){
+      watergirl.x = 1284
+      watergirl.y = 476
+    }
+    movingPlatform.bounceOff(b1);
+    movingPlatform.bounceOff(b5);
+    
+    if(fireboy.isTouching(button2)||watergirl.isTouching(button2)||fireboy.isTouching(button3)||watergirl.isTouching(button3)){
+      movingPlatform.velocityY = 0
+    }
+    else{
+      movingPlatform.velocityY = -7
+      movingPlatform.veloctyX = 0
+    }
+    
+    if (watergirl.isTouching(firePower)||fireboy.isTouching(firePower)){
+      firePower.destroy();
+      powersCollected++;
+    }
+
+    if (troll.isTouching(invisibleWall)){
+      troll.velocityY = 7
+    }
+    if(troll.isTouching(b4)){
+      troll.velocityX = -7
+    }
+    if(troll.isTouching(b6)){
+      troll.velocityX = 7
+    }
+    if(troll.isTouching(b9)){
+      troll.velocityY = -7
+    }
+
+    watergirl.collide(w1,calculatePoints)
+    watergirl.collide(w2,calculatePoints)
+    watergirl.collide(w3,calculatePoints)
+    watergirl.collide(w4,calculatePoints)
+
+    fireboy.collide(f1,calculatePoints)
+    fireboy.collide(f2,calculatePoints)
+    fireboy.collide(f3,calculatePoints)
+    fireboy.collide(f4,calculatePoints)
+
+
+    if (keyDown("f") && powersCollected> 0){
+      beam.x = watergirl.x + 10;
+      beam.y = watergirl.y;
+      beam.x = fireboy.x
+      beam.y = fireboy.y
+      beam.visible = true;
+      beam.velocityX = 5;
+      powersCollected--;
+    }
+    
+    if (troll.isTouching(beam)){
+      troll.destroy();
+      beam.destroy();
+    
+    }
+    if (beam.velocityX!==0 && beam.isTouching(b2)){
+      beam.destroy();     
+    }
+    if (watergirl.isTouching(watergate)&&fireboy.isTouching(firegate)){
+      gameState = "end";
+    }
   }
   else{
-    movingPlatform.velocityY = -7
-    movingPlatform.veloctyX = 0
+    text("YOU WIN!CLICK ON THE LEADERBOARD TO SEE YOUR POSITION OR PRESS RETRY. ")
+    //leaderboard.visible = true;
+    //retryButton.visible = true;
   }
   
-  if (watergirl.isTouching(firePower)||fireboy.isTouching(firePower)){
-    firePower.destroy();
-    powersCollected++;
-  }
-
-  if (troll.isTouching(invisibleWall)){
-    troll.velocityY = 7
-  }
-  if(troll.isTouching(b4)){
-    troll.velocityX = -7
-  }
-  if(troll.isTouching(b6)){
-    troll.velocityX = 7
-  }
-  if(troll.isTouching(b9)){
-    troll.velocityY = -7
-  }
-
-
-/*
-  if(watergirl.isTouching(w1)||watergirl.isTouching(w2)||watergirl.isTouching(w3)||watergirl.isTouching(w4) ){
-    points +=1
-    w1.destroy();
-  }
-  
-  if(fireboy.isTouching(f1)||fireboy.isTouching(f2)||fireboy.isTouching(f3)||fireboy.isTouching(f4)){
-    pointsCollected ++;
-    f1.destroy();
-  }
-  
-*/
-watergirl.collide(w1,calculatePoints)
-watergirl.collide(w2,calculatePoints)
-watergirl.collide(w3,calculatePoints)
-watergirl.collide(w4,calculatePoints)
-
-fireboy.collide(f1,calculatePoints)
-fireboy.collide(f2,calculatePoints)
-fireboy.collide(f3,calculatePoints)
-fireboy.collide(f4,calculatePoints)
-
-
-  if (keyDown("f") && powersCollected> 0){
-    beam.x = watergirl.x + 10;
-    beam.y = watergirl.y;
-    beam.x = fireboy.x
-    beam.y = fireboy.y
-    beam.visible = true;
-    beam.velocityX = 5;
-    powersCollected--;
-  }
-  
-  if (troll.isTouching(beam)){
-    troll.destroy();
-    beam.destroy();
-   
-  }
-  if (beam.velocityX!==0 && beam.isTouching(b2)){
-    beam.destroy();    
-  }
-  if (watergirl.isTouching(watergate)||fireboy.isTouching(firegate)){
-    watergirl.visible = false;
-    troll.visible = false;
-    gate1.visible = false;
-    button1.visible = false;
-    beam.visible = false;
-    powerPad.visible = false;
-    exit.visible = false;
-    lava.visible = false;
-    lava2.visible = false;
-    lava3.visible = false;
-    b1.visible = false;   
-    b2.visible = false;  
-    b3.visible = false;
-    fireboy.visible = false;
-    
-  }
-  
-
 }
+
 function calculatePoints(char,pointSprite){
 points++;
 pointSprite.destroy();
+
+}
+
+function toggleVisibility(flag){
+  watergirl.visible = flag;
+  troll.visible = flag;
+  gate1.visible = flag;
+  button1.visible = flag;
+  beam.visible = flag;
+  powerPad.visible = flag;
+  exit.visible = flag;
+  lava.visible = flag;
+  lava2.visible = flag;
+  lava3.visible = flag;
+  b1.visible = flag;   
+  b2.visible = flag;  
+  b3.visible = flag;
+  //write till b9
+  fireboy.visible = flag;
 
 }
